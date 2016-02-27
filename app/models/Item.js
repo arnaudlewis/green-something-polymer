@@ -10,18 +10,17 @@ const schema = new Schema({
 });
 const model = mongoose.model('model', schema, itemCollection);
 
+let isValid = (p) => p !== undefined && p !== null && p.trim() !== '';
 
 let Item = function(key, value) {
-  this.key = key;
-  this.value = value;
+  this.defined = isValid(key) && isValid(value)
+  if(this.defined) {
+    this.key = key;
+    this.value = value;
+  }
 }
-Item.prototype.getKey = function () { return this.key; }
-Item.prototype.getValue = function () { return this.value; }
-Item.prototype.toJson = function () { return { 'key': this.key, 'value': this.value }; }
-
-Item.prototype.save = function () {  
-    return new model(this.toJson()).save();  
-}
-
+Item.prototype.isDefined = function () { return this.defined; }
+Item.prototype.toJson = function () { return this.defined ? { 'key': this.key, 'value': this.value } : {}; }
+Item.prototype.model = function () { return new model(this.toJson()); }
 
 module.exports = Item;

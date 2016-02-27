@@ -21,7 +21,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/add', function(req,res,next){
-  new Item(req.body.key,req.body.val).save().then(
+  let item = new Item(req.body.key,req.body.val)
+  if(!item.isDefined()) res.status(501).send("Missing imformations !")
+  item.model().save().then(
     () => res.end(),
     (err) => res.status(501).send("error")
   )
