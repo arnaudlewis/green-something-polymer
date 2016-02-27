@@ -1,0 +1,21 @@
+{
+  "name": "TryPolymer",
+  "description": "",
+  "main": "",
+  "authors": [
+    "ingesup"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/olivierGitHub/TryPolymer",
+  "moduleType": [],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
