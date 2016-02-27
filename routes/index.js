@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/add', function(req,res,next){
   new Item(req.body.key,req.body.val).save().then(
-    () => res.end,
+    () => res.end(),
     (err) => res.status(501).send("error")
   )
 });
