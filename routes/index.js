@@ -20,4 +20,11 @@ router.get('/', function(req, res, next) {
   res.send(toJsonArray(items));
 });
 
+router.post('/add', function(req,res,next){
+  new Item(req.body.key,req.body.val).save().then(
+    () => res.end,
+    (err) => res.status(501).send("error")
+  )
+});
+
 module.exports = router;
