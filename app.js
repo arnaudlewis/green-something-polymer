@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var Item = require('./app/models/Item');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/greensomething');
 
 var routes = require('./routes/index');
 
@@ -17,7 +17,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
 
 
 app.use('/', routes);
