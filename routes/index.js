@@ -4,20 +4,19 @@ var express = require('express');
 var router = express.Router();
 
 var Item = require('../app/models/Item');
+var Items = require('../app/collections/Items');
 
 /* GET home page. */
 
-function generateRange(length) {
-  return length ? Array.apply(null, {'length': length}).map(Number.call, Number) : [];
-}
-
-function toJsonArray(items) {
-  return items.map((i, index) => i.toJson());
-}
-
 router.get('/', function(req, res, next) {
-  let items = generateRange(10).map((item, index) => new Item('hello' + index, 'hello world'));
-  res.send(toJsonArray(items));
+  Items.get()
+    .then((docs) => {
+      res.send(Items.toArray(docs))
+    })
+    .catch((errs) => {
+      console.log(errs)
+      res.end()
+    })
 });
 
 router.post('/add', function(req,res,next){
