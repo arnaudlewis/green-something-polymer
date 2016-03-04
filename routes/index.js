@@ -6,8 +6,7 @@ var router = express.Router();
 var Item = require('../app/models/Item');
 var Items = require('../app/collections/Items');
 
-var User = require('../app/models/User');
-var Users = require('../app/collections/Users');
+
 
 
 /* GET home page. */

@@ -4,7 +4,19 @@ var express = require('express');
 var router = express.Router();
 
 var User = require('../app/models/user');
+var Users = require('../app/collections/Users');
 
+
+router.get('/', function(req, res, next) {
+  Users.get()
+    .then((docs) => {
+      res.send(Items.toArray(docs))
+    })
+    .catch((errs) => {
+      console.log(errs)
+      res.end()
+    })
+});
 
 router.post('/add', function(req,res,next){
   let user = new User(req.body.username,req.body.password)
@@ -15,16 +27,22 @@ router.post('/add', function(req,res,next){
   )
 });
 
-/*router.get('/find', function(req,res,next){
-  let user = new User()
-  if(!user.isDefined()) 
-  user.model().find({}, function (err, users) {
-        if (!err) {
-            res.send(users);
-        } else {
-            res.status(501).send("no user found");
-        }
-    }).select('-__v');
-});*/
+router.put('/update', function(req, res, next) {
+  Users.update(req.body.id)
+    .then((user) => res.status(200).send(user))
+    .catch((errs) => {
+      console.log(errs)
+      res.end()
+    })
+});
+
+router.delete('/remove', function(req, res, next) {
+  Users.remove(req.body.id)
+    .then(() => res.status(204).send("user deleted"))
+    .catch((errs) => {
+      console.log(errs)
+      res.end()
+    })
+});
 
 module.exports = router;
