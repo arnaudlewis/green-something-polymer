@@ -23,9 +23,9 @@ var Travels = {
     })
   },
 
-  update(id,departure,arrival){
+  update(id,newTravel){
     return new Promise((resolve, reject) => {
-      model.findByIdAndUpdate(id,{departure:departure, arrival:arrival}, (err,travel) => {
+      model.findByIdAndUpdate(id,newTravel, (err,travel) => {
         if (err) reject(err)
         else resolve(travel)
       })

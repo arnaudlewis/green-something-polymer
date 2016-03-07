@@ -18,6 +18,17 @@ router.get('/', function(req, res, next) {
     })
 });
 
+router.post('/findbyid', function(req, res, next) {
+  Travels.byId(req.body.id)
+    .then((travel) => {
+      res.send(travel)
+    })
+    .catch((errs) => {
+      console.log(errs)
+      res.end()
+    })
+});
+
 router.post('/add', function(req,res,next){
   let travel = new Travel(req.body.id,req.body.departure,req.body.arrival,req.body.driver,req.body.price)
   if(!travel.isDefined()) res.status(501).send("Missing imformations !")
@@ -28,7 +39,7 @@ router.post('/add', function(req,res,next){
 });
 
 router.put('/update', function(req, res, next) {
-  Travels.update(req.body.id)
+  Travels.update(req.body.id,req.body)
     .then((travel) => res.status(200).send(travel))
     .catch((errs) => {
       console.log(errs)

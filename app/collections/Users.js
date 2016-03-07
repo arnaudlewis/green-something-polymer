@@ -23,9 +23,9 @@ var Users = {
     })
   },
 
-  update(id,username,password){
+  update(id,newUser){
     return new Promise((resolve, reject) => {
-      model.findByIdAndUpdate(id,{username:username, password:password}, (err,user) => {
+      model.findByIdAndUpdate(id,newUser, (err,user) => {
         if (err) reject(err)
         else resolve(user)
       })
