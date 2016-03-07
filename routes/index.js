@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/add', function(req,res,next){
-  let item = new Item(req.body.key,req.body.val)
+  let item = new Item(req.body.id,req.body.key,req.body.val)
   if(!item.isDefined()) res.status(501).send("Missing imformations !")
   item.model().save().then(
     () => res.end(),

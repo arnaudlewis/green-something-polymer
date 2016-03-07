@@ -23,9 +23,9 @@ var Users = {
     })
   },
 
-  update(id){
+  update(id,username,password){
     return new Promise((resolve, reject) => {
-      model.findByIdAndUpdate(id, (err,user) => {
+      model.findByIdAndUpdate(id,{username:username, password:password}, (err,user) => {
         if (err) reject(err)
         else resolve(user)
       })
@@ -41,8 +41,8 @@ var Users = {
     })
   },
 
-  toArray(items) {
-    return items.map((i, index) => i.toJson())
+  toArray(users) {
+    return users.map((i, index) => i.toJson())
   },
 
   toUsers(docs) {

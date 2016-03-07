@@ -4,13 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var Item = require('./app/models/Item');
 var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/greensomething');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var indexRoutes = require('./routes/index');
+var userRoutes = require('./routes/users');
+var travelRoutes = require('./routes/travels');
 
 var app = express();
 
@@ -20,8 +20,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
-app.use('/', routes);
-app.use('/user', users);
+app.use('/', indexRoutes);
+app.use('/user', userRoutes);
+app.use('/travel', travelRoutes);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var model = require('../const/UserConst').model;
+var model = require('../const/UsersConst').model;
 
 
 let isValid = (p) => p !== undefined && p !== null && p.trim() !== '';
