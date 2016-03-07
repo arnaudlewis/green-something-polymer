@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/add', function(req,res,next){
-  let travel = new Travel(req.body.id,req.body.departure,req.body.arrival)
+  let travel = new Travel(req.body.id,req.body.departure,req.body.arrival,req.body.driver,req.body.price)
   if(!travel.isDefined()) res.status(501).send("Missing imformations !")
   travel.model().save().then(
     () => res.end(),
@@ -37,7 +37,7 @@ router.put('/update', function(req, res, next) {
 });
 
 router.delete('/remove', function(req, res, next) {
-  Travels.remove(req.body.id, req.body.departure, req.body.arrival)
+  Travels.remove(req.body.id)
     .then(() => res.status(204).send("travel deleted"))
     .catch((errs) => {
       console.log(errs)

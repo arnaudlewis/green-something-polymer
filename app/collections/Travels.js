@@ -18,7 +18,7 @@ var Travels = {
     return new Promise((resolve, reject) => {
       model.findById(id, (err, travel) => {
         if (err) reject(err)
-        else resolve(new Travel(travel._id,travel.departure,travel.arrival))
+        else resolve(new Travel(travel._id,travel.departure,travel.arrival, travel.driver, travel.price))
       })
     })
   },
@@ -46,7 +46,7 @@ var Travels = {
   },
 
   toTravels(docs) {
-    return docs.map(d => new Travel(d._id, d.departure, d.arrival))
+    return docs.map(d => new Travel(d._id, d.departure, d.arrival, d.driver, d.price))
   }
 }
 
