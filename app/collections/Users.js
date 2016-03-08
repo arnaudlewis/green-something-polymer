@@ -2,6 +2,9 @@
 
 var model = require('../const/UsersConst').model;
 var User = require('../models/User');
+var jwt = require('jsonwebtoken');
+var jwtConfig = require('../../utils/jwtConfig');
+
 
 var Users = {
 
@@ -12,6 +15,26 @@ var Users = {
           else resolve(this.toUsers(docs))
         })
       })
+  },
+
+  authenticate(username,password){
+    return new Promise((resolve, reject) => {
+      model.findOne({username:username}, (err, user) => {
+          if (err){
+            reject(err);
+          }else {
+            var auth = {};
+            if (user.password==password){
+              var token = jwt.sign(user, jwtConfig.secret, {expiresInMinutes: 100000});
+              auth = {authentication:true, token:token}
+              resolve(auth);
+            }else{
+              auth = {authentication:false, token:''}
+              resolve(auth);
+            }
+          }
+        });
+    })
   },
 
   byId(id){

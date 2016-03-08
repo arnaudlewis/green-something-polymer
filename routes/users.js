@@ -3,6 +3,8 @@
 var express = require('express');
 var router = express.Router();
 
+var utils = require('../utils/utils.js');
+
 var User = require('../app/models/user');
 var Users = require('../app/collections/Users');
 
@@ -36,6 +38,33 @@ router.post('/add', function(req,res,next){
     () => res.end(),
     (err) => res.status(501).send("error")
   )
+});
+
+router.post('/authenticate', function(req,res){
+    console.log(req.body.username);
+    Users.authenticate(req.body.username,req.body.password)
+      .then((auth) => {
+        console.log(auth);
+        res.send(auth)
+      })
+      .catch((errs) => {
+        console.log(errs)
+        res.end()
+      })
+});
+
+//the following middleware apply only to the following routes
+router.use(utils.verifyToken);
+
+router.get('/test', function(req, res, next) {
+  Users.get()
+    .then((docs) => {
+      res.send('middleware works fine')
+    })
+    .catch((errs) => {
+      console.log(errs)
+      res.end()
+    })
 });
 
 router.put('/update', function(req, res, next) {

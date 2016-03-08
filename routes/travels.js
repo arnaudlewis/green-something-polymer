@@ -3,6 +3,8 @@
 var express = require('express');
 var router = express.Router();
 
+var utils = require('../utils/utils.js');
+
 var Travel = require('../app/models/travel');
 var Travels = require('../app/collections/Travels');
 
@@ -28,6 +30,9 @@ router.post('/findbyid', function(req, res, next) {
       res.end()
     })
 });
+
+//the following middleware apply only to the following routes
+router.use(utils.verifyToken);
 
 router.post('/add', function(req,res,next){
   let travel = new Travel(req.body.id,req.body.departure,req.body.arrival,req.body.driver,req.body.price)
